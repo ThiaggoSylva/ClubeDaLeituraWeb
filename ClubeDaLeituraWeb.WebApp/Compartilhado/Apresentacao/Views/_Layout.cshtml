@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Titulo - Clube da Leitura</title>
+</head>
+<body>
+    @* Barra de Navegação *@
+    <nav>
+        <div>
+            <a asp-controller="Home" asp-action="Index">Clube da Leitura</a>
+
+            <div>
+                <div>
+                    <a asp-controller="Home" asp-action="Index">Início</a>
+                    <a asp-controller="Caixa" asp-action="Listar">Controle de Caixas</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    @* Cabeçalho da Página *@
+    <header>
+        <h2>@ViewBag.Titulo</h2>
+    </header>
+
+    @* Conteúdo da Página *@
+    <main>
+        @RenderBody()
+    </main>
+</body>
+</html>
