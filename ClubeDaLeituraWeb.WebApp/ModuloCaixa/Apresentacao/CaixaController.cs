@@ -63,7 +63,6 @@ public class CaixaController : Controller
         return RedirectToAction(nameof(Listar));
     }
 
-
     [HttpGet]
     public ActionResult Editar(string id)
     {
@@ -120,10 +119,7 @@ public class CaixaController : Controller
     [HttpPost]
     public ActionResult Excluir(ExcluirCaixaViewModel excluirVm)
     {
-        Caixa? caixa = repositorioCaixa.SelecionarPorId(excluirVm.Id);
-
-        if (caixa != null)
-            repositorioCaixa.Excluir(caixa);
+        repositorioCaixa.Excluir(excluirVm.Id);
 
         return RedirectToAction(nameof(Listar));
     }

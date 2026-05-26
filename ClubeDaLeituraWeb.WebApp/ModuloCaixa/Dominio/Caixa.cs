@@ -33,7 +33,7 @@ public sealed class Caixa : EntidadeBase<Caixa>
         return erros;
     }
 
-    public override void AtualizarDados(Caixa entidadeAtualizada)
+    public override void Atualizar(Caixa entidadeAtualizada)
     {
         Etiqueta = entidadeAtualizada.Etiqueta;
         Cor = entidadeAtualizada.Cor;

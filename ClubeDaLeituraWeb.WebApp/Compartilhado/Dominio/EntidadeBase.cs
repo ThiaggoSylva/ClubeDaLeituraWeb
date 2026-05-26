@@ -9,5 +9,5 @@ public abstract class EntidadeBase<T>
             .Substring(0, 7);
 
     public abstract List<string> Validar();
-    public abstract void AtualizarDados(T entidadeAtualizada);
+    public abstract void Atualizar(T entidadeAtualizada);
 }
