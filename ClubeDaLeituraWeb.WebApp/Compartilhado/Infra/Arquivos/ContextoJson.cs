@@ -1,12 +1,14 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using ClubeDaLeituraWeb.WebApp.ModuloCaixa.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.Compartilhado.Infra.Arquivos;
 
 public sealed class ContextoJson
 {
     public List<Caixa> Caixas { get; set; } = new List<Caixa>();
+    public List<Revista> Revistas { get; set; } = [];
 
     private readonly string caminhoArquivo;
 
