@@ -1,4 +1,4 @@
-using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra;
+using ClubeDaLeituraWeb.WebApp.Compartilhado.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.ModuloCaixa.Dominio;
 
