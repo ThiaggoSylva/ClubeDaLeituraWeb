@@ -1,57 +1,89 @@
 @{
+    Layout = "_Layout";
     ViewBag.Titulo = "Editar Revista";
+    List<SelectListItem> caixas = ViewBag.Caixas;
 }
 
-<form method="post">
+@model EditarRevistaViewModel
+
+<form class="card border-primary-subtle shadow-sm mx-auto p-4"
+      style="max-width: 620px;"
+      asp-action="Editar"
+      method="post">
+
+    <input type="hidden" asp-for="id" />
 
     <div class="mb-3">
-        <label class="form-label">Título</label>
+        <label class="form-label fw-semibold text-primary text-uppercase small">
+            Título
+        </label>
 
-         <input class="form-control"
-             id="Titulo"
-             name="Titulo"
-             value="@Model?.Titulo" />
+        <input asp-for="titulo" class="form-control" />
 
-         <span class="text-danger"></span>
+        <span asp-validation-for="titulo"
+              class="text-danger small fw-semibold"></span>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Número da Edição</label>
+        <label class="form-label fw-semibold text-primary text-uppercase small">
+            Número da Edição
+        </label>
 
-         <input class="form-control"
-             id="NumeroEdicao"
-             name="NumeroEdicao"
-             value="@Model?.NumeroEdicao" />
+        <input asp-for="numeroEdicao"
+               type="number"
+               min="1"
+               class="form-control" />
 
-         <span class="text-danger"></span>
+        <span asp-validation-for="numeroEdicao"
+              class="text-danger small fw-semibold"></span>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Ano de Publicação</label>
+        <label class="form-label fw-semibold text-primary text-uppercase small">
+            Ano de Publicação
+        </label>
 
-         <input type="date"
-             class="form-control"
-             id="AnoPublicacao"
-             name="AnoPublicacao"
-             value="@Model?.AnoPublicacao" />
+        <input asp-for="anoPublicacao"
+               type="number"
+               class="form-control" />
+
+        <span asp-validation-for="anoPublicacao"
+              class="text-danger small fw-semibold"></span>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Caixa</label>
+        <label class="form-label fw-semibold text-primary text-uppercase small">
+            Caixa
+        </label>
 
-         <input class="form-control"
-             id="CaixaId"
-             name="CaixaId"
-             value="@Model?.CaixaId" />
+        <select asp-for="caixaId" class="form-select">
+            <option value="">Selecione uma caixa</option>
+
+            @foreach (var item in caixas)
+            {
+                <option value="@item.Value"
+                        selected="@(item.Value == Model.caixaId)">
+                    @item.Text
+                </option>
+            }
+        </select>
+
+        <span asp-validation-for="caixaId"
+              class="text-danger small fw-semibold"></span>
     </div>
 
-    <button class="btn btn-primary">
-        Salvar
-    </button>
+    <div class="d-flex justify-content-end gap-2 mt-4">
 
-    <a class="btn btn-secondary"
-       asp-action="Listar">
-        Voltar
-    </a>
+        <a class="btn btn-outline-primary rounded-pill px-4"
+           asp-action="Listar">
+            Voltar
+        </a>
+
+        <button class="btn btn-primary rounded-pill px-4"
+                type="submit">
+            Confirmar
+        </button>
+
+    </div>
 
 </form>
