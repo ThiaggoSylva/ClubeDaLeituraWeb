@@ -12,4 +12,13 @@ public class RepositorioCaixaEmArquivo : RepositorioBaseEmArquivo<Caixa>, IRepos
     {
         return contexto.Caixas;
     }
+
+
+    public Caixa? SelecionarPorEtiqueta(string etiqueta)
+    {
+    return registros.FirstOrDefault(x =>
+        x.Etiqueta.Equals(
+            etiqueta,
+            StringComparison.OrdinalIgnoreCase));
+    }
 }

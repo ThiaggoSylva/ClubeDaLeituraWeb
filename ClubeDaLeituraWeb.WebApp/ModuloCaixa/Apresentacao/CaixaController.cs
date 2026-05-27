@@ -1,15 +1,20 @@
 using ClubeDaLeituraWeb.WebApp.ModuloCaixa.Dominio;
 using Microsoft.AspNetCore.Mvc;
+using ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.ModuloCaixa.Apresentacao;
 
 public class CaixaController : Controller
 {
     private readonly IRepositorioCaixa repositorioCaixa;
+    private readonly IRepositorioRevista repositorioRevista;
 
-    public CaixaController(IRepositorioCaixa repositorioCaixa)
+    public CaixaController(
+    IRepositorioCaixa repositorioCaixa,
+    IRepositorioRevista repositorioRevista)
     {
-        this.repositorioCaixa = repositorioCaixa;
+    this.repositorioCaixa = repositorioCaixa;
+    this.repositorioRevista = repositorioRevista;
     }
 
     [HttpGet]
@@ -57,6 +62,18 @@ public class CaixaController : Controller
             cadastrarVm.Cor,
             cadastrarVm.DiasDeEmprestimo
         );
+
+        Caixa? caixaExistente =
+    repositorioCaixa.SelecionarPorEtiqueta(cadastrarVm.Etiqueta);
+
+    if (caixaExistente != null)
+    {
+    ModelState.AddModelError(
+        "Etiqueta",
+        "Já existe uma caixa com esta etiqueta.");
+
+    return View(cadastrarVm);
+    }
 
         repositorioCaixa.Cadastrar(novaCaixa);
 
@@ -119,6 +136,20 @@ public class CaixaController : Controller
     [HttpPost]
     public ActionResult Excluir(ExcluirCaixaViewModel excluirVm)
     {
+        List<Revista> revistas =
+            repositorioRevista.SelecionarTodos();
+
+        bool possuiRevistas =
+            revistas.Any(x => x.CaixaId == excluirVm.Id);
+
+        if (possuiRevistas)
+        {
+            TempData["MensagemErro"] =
+                "Não é possível excluir uma caixa com revistas vinculadas.";
+
+            return RedirectToAction(nameof(Listar));
+        }
+
         repositorioCaixa.Excluir(excluirVm.Id);
 
         return RedirectToAction(nameof(Listar));

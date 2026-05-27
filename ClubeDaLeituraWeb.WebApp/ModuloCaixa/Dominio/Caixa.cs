@@ -30,6 +30,9 @@ public sealed class Caixa : EntidadeBase<Caixa>
         if (DiasDeEmprestimo < 1)
             erros.Add("O campo \"Dias de Empréstimo\" deve conter um valor maior que 0.");
 
+        if (DiasDeEmprestimo <= 0)
+            erros.Add("O prazo de empréstimo deve ser positivo.");
+
         return erros;
     }
 

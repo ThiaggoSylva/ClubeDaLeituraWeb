@@ -17,7 +17,7 @@ public class RepositorioAmigoEmArquivo
         return contexto.Amigos;
     }
 
-    public bool Editar(string id, Amigo amigoAtualizado)
+    public new bool Editar(string id, Amigo amigoAtualizado)
     {
         Amigo? amigoSelecionado = SelecionarPorId(id);
 
