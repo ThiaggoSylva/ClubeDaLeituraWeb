@@ -1,8 +1,8 @@
 public record ExcluirRevistaViewModel
 (
-    string id,
-    string titulo,
-    int numeroEdicao,
-    int anoPublicacao,
-    string caixaId
+    string Id,
+    string Titulo,
+    int NumeroEdicao,
+    int AnoPublicacao,
+    string CaixaId
 );

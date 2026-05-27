@@ -163,15 +163,16 @@ public IActionResult Editar(EditarRevistaViewModel vm)
     }
 
     [HttpPost]
-    public IActionResult Excluir(
-        ExcluirRevistaViewModel vm)
+    public IActionResult ExcluirConfirmado(string id)
     {
-        Revista? revista =
-            repositorioRevista.SelecionarPorId(vm.id);
+    Revista? revistaSelecionada =
+        repositorioRevista.SelecionarPorId(id);
 
-        if (revista != null)
-            repositorioRevista.Excluir(vm.id);
-
+    if (revistaSelecionada == null)
         return RedirectToAction(nameof(Listar));
+
+    repositorioRevista.Excluir(revistaSelecionada);
+
+    return RedirectToAction(nameof(Listar));
     }
 }
