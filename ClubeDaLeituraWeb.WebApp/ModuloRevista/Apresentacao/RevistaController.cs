@@ -37,7 +37,8 @@ public class RevistaController : Controller
     [HttpGet]
     public IActionResult Cadastrar()
     {
-        return View(new CadastrarRevistaViewModel());
+        CadastrarRevistaViewModel vm = new CadastrarRevistaViewModel(string.Empty, 1, 0, string.Empty);
+        return View(vm);
     }
 
     [HttpPost]
@@ -99,14 +100,14 @@ public IActionResult Editar(EditarRevistaViewModel editarVm)
         return View(editarVm);
 
     Revista revistaAtualizada = new Revista(
-        editarVm.Titulo,
-        editarVm.NumeroEdicao,
-        editarVm.AnoPublicacao,
-        editarVm.CaixaId
+        editarVm.titulo,
+        editarVm.numeroEdicao,
+        editarVm.anoPublicacao,
+        editarVm.caixaId
     );
 
     repositorioRevista.Editar(
-        editarVm.Id,
+        editarVm.id,
         revistaAtualizada
     );
 
@@ -122,9 +123,11 @@ public IActionResult Editar(EditarRevistaViewModel editarVm)
             return RedirectToAction(nameof(Listar));
 
         ExcluirRevistaViewModel vm = new(
-            revista.Id,
+            id,
             revista.Titulo,
-            revista.NumeroEdicao);
+            revista.NumeroEdicao,
+            revista.AnoPublicacao,
+            revista.CaixaId);
 
         return View(vm);
     }
@@ -134,10 +137,10 @@ public IActionResult Editar(EditarRevistaViewModel editarVm)
         ExcluirRevistaViewModel vm)
     {
         Revista? revista =
-            repositorioRevista.SelecionarPorId(vm.Id);
+            repositorioRevista.SelecionarPorId(vm.id);
 
         if (revista != null)
-            repositorioRevista.Excluir(vm.Id);
+            repositorioRevista.Excluir(vm.id);
 
         return RedirectToAction(nameof(Listar));
     }

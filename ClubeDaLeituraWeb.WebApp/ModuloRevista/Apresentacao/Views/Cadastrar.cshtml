@@ -1,0 +1,60 @@
+@{
+    ViewBag.Titulo = "Cadastrar Revista";
+    List<SelectListItem> caixas = ViewBag.Caixas;
+}
+
+@model CadastrarRevistaViewModel
+
+<form asp-action="Cadastrar" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Título</label>
+
+         <input class="form-control"
+             id="Titulo"
+             name="Titulo"
+             value="@Model?.Titulo" />
+
+         <span class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Número da Edição</label>
+
+         <input class="form-control"
+             id="NumeroEdicao"
+             name="NumeroEdicao"
+             value="@Model?.NumeroEdicao" />
+
+         <span class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Ano de Publicação</label>
+
+         <input type="number"
+             class="form-control"
+             id="AnoPublicacao"
+             name="AnoPublicacao"
+             value="@Model?.AnoPublicacao" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CaixaId" class="form-label fw-semibold text-primary text-uppercase small">Caixa</label>
+        <select asp-for="CaixaId" asp-items="caixas" class="form-select">
+        <option value="CaixaId">Selecione uma caixa</option>
+        </select>
+        <span asp-validation-for="CaixaId" class="text-danger small fw-semibold"></span>
+    </div>
+
+    <button class="btn btn-primary rounded-pill px-4"
+            type="submit">
+        Salvar
+    </button>
+
+    <a class="btn btn-secondary"
+       asp-action="Listar">
+        Voltar
+    </a>
+
+</form>

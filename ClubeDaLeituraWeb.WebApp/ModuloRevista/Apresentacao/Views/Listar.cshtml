@@ -1,0 +1,52 @@
+@model List<ClubeDaLeituraWeb.WebApp.ModuloRevista.Apresentacao.ListarRevistasViewModel>
+
+@{
+    ViewBag.Titulo = "Listagem de Revistas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Revistas</h2>
+
+    <a class="btn btn-primary"
+       asp-action="Cadastrar">
+        Nova Revista
+    </a>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Edição</th>
+            <th>Ano</th>
+            <th>Caixa</th>
+            <th width="180">Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var revista in Model)
+        {
+            <tr>
+                <td>@revista.Titulo</td>
+                <td>@revista.NumeroEdicao</td>
+                <td>@revista.AnoPublicacao</td>
+                <td>@revista.CaixaId</td>
+
+                <td>
+                    <a class="btn btn-warning btn-sm"
+                       asp-action="Editar"
+                       asp-route-id="@revista.Id">
+                        Editar
+                    </a>
+
+                    <a class="btn btn-danger btn-sm"
+                       asp-action="Excluir"
+                       asp-route-id="@revista.Id">
+                        Excluir
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

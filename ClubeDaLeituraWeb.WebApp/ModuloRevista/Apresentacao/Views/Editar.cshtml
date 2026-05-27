@@ -1,0 +1,57 @@
+@{
+    ViewBag.Titulo = "Editar Revista";
+}
+
+<form method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Título</label>
+
+         <input class="form-control"
+             id="Titulo"
+             name="Titulo"
+             value="@Model?.Titulo" />
+
+         <span class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Número da Edição</label>
+
+         <input class="form-control"
+             id="NumeroEdicao"
+             name="NumeroEdicao"
+             value="@Model?.NumeroEdicao" />
+
+         <span class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Ano de Publicação</label>
+
+         <input type="date"
+             class="form-control"
+             id="AnoPublicacao"
+             name="AnoPublicacao"
+             value="@Model?.AnoPublicacao" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Caixa</label>
+
+         <input class="form-control"
+             id="CaixaId"
+             name="CaixaId"
+             value="@Model?.CaixaId" />
+    </div>
+
+    <button class="btn btn-primary">
+        Salvar
+    </button>
+
+    <a class="btn btn-secondary"
+       asp-action="Listar">
+        Voltar
+    </a>
+
+</form>

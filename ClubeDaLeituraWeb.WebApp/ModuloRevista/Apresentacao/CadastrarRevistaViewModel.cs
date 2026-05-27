@@ -1,19 +1,20 @@
 using System.ComponentModel.DataAnnotations;
+using ClubeDaLeituraWeb.WebApp.ModuloCaixa.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.ModuloRevista.Apresentacao;
 
-public class CadastrarRevistaViewModel
-{
+public record CadastrarRevistaViewModel
+(
     [Required]
     [StringLength(100, MinimumLength = 2)]
-    public string Titulo { get; set; } = string.Empty;
+     string Titulo,
 
     [Range(1, int.MaxValue)]
-    public int NumeroEdicao { get; set; }
+     int NumeroEdicao,
 
     [Required]
-    public DateOnly AnoPublicacao { get; set; }
+     int AnoPublicacao,
 
     [Required]
-    public string CaixaId { get; set; } = string.Empty;
-}
+     string CaixaId
+);

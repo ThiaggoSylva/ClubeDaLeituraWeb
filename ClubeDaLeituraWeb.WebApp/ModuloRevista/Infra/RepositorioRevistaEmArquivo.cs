@@ -18,6 +18,7 @@ public class RepositorioRevistaEmArquivo
         return contexto.Revistas;
     }
 
+
     public new bool Editar(string id, Revista revistaAtualizada)
     {
         Revista? revistaSelecionada = SelecionarPorId(id);
@@ -32,19 +33,17 @@ public class RepositorioRevistaEmArquivo
         return true;
     }
 
-    public new bool Excluir(Revista revista)
+    public new void Excluir(Revista revista)
     {
-        Revista? revistaSelecionada =
-            registros.FirstOrDefault(x => x.Id == revista.Id);
+    Revista? revistaSelecionada =
+        registros.FirstOrDefault(x => x.Id == revista.Id);
 
-        if (revistaSelecionada == null)
-            return false;
+    if (revistaSelecionada == null)
+        return;
 
-        registros.Remove(revistaSelecionada);
+    registros.Remove(revistaSelecionada);
 
-        contexto.Salvar();
-
-        return true;
+    contexto.Salvar();
     }
 
     public Revista? SelecionarPorTituloEdicao(

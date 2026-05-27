@@ -8,20 +8,24 @@ public class Revista : EntidadeBase<Revista>
 
     public int NumeroEdicao { get; set; }
 
-    public DateOnly AnoPublicacao { get; set; }
+    public int AnoPublicacao { get; set; }
 
     public string CaixaId { get; set; }
 
     public Revista(
         string titulo,
         int numeroEdicao,
-        DateOnly anoPublicacao,
+        int anoPublicacao,
         string caixaId)
     {
         Titulo = titulo;
         NumeroEdicao = numeroEdicao;
         AnoPublicacao = anoPublicacao;
         CaixaId = caixaId;
+    }
+
+    public Revista()
+    {
     }
 
     public override void Atualizar(Revista registroEditado)

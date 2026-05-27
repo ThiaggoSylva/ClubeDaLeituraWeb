@@ -1,0 +1,23 @@
+@{
+    ViewBag.Titulo = "Excluir Revista";
+}
+
+<div class="alert alert-danger">
+    Deseja realmente excluir a revista
+    <strong>@Model.Titulo</strong>?
+</div>
+
+<form method="post">
+
+    <input type="hidden" name="Id" value="@Model?.Id" />
+
+    <button class="btn btn-danger">
+        Confirmar Exclusão
+    </button>
+
+    <a class="btn btn-secondary"
+       asp-action="Listar">
+        Cancelar
+    </a>
+
+</form>
