@@ -1,12 +1,11 @@
-using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra;
 using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra.Arquivos;
+using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra;
 using ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.ModuloAmigo.Infra;
 
 public class RepositorioAmigoEmArquivo
-    : RepositorioBaseEmArquivo<Amigo>,
-    IRepositorioAmigo
+    : RepositorioBaseEmArquivo<Amigo>, IRepositorioAmigo
 {
     public RepositorioAmigoEmArquivo(ContextoJson contexto)
         : base(contexto)
@@ -20,13 +19,14 @@ public class RepositorioAmigoEmArquivo
 
     public bool Editar(string id, Amigo amigoAtualizado)
     {
-        Amigo? amigoSelecionado =
-            SelecionarPorId(id);
+        Amigo? amigoSelecionado = SelecionarPorId(id);
 
         if (amigoSelecionado == null)
             return false;
 
-        amigoSelecionado.Atualizar(amigoAtualizado);
+        amigoSelecionado.Nome = amigoAtualizado.Nome;
+        amigoSelecionado.NomeResponsavel = amigoAtualizado.NomeResponsavel;
+        amigoSelecionado.Telefone = amigoAtualizado.Telefone;
 
         contexto.Salvar();
 
@@ -49,13 +49,13 @@ public class RepositorioAmigoEmArquivo
     }
 
     public Amigo? SelecionarPorNomeTelefone(
-        string nome,
-        string telefone)
+    string nome,
+    string telefone)
     {
-        return registros.FirstOrDefault(x =>
-            x.Nome.Equals(nome,
+    return registros.FirstOrDefault(x =>
+        x.Nome.Equals(nome,
             StringComparison.OrdinalIgnoreCase)
-            &&
-            x.Telefone == telefone);
+        &&
+        x.Telefone == telefone);
     }
 }

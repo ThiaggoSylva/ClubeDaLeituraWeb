@@ -4,11 +4,11 @@ namespace ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
 
 public class Amigo : EntidadeBase<Amigo>
 {
-    public string Nome { get; set; }
+    public string Nome { get; set; } = string.Empty;
 
-    public string NomeResponsavel { get; set; }
+    public string NomeResponsavel { get; set; } = string.Empty;
 
-    public string Telefone { get; set; }
+    public string Telefone { get; set; } = string.Empty;
 
     public Amigo()
     {

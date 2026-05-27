@@ -57,5 +57,6 @@ public sealed class ContextoJson
 
         Caixas = contextoSalvo.Caixas;
         Revistas = contextoSalvo.Revistas;
+        Amigos = contextoSalvo.Amigos;
     }
 }
