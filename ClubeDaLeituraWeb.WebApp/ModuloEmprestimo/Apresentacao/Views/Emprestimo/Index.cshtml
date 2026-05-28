@@ -1,0 +1,32 @@
+@model List<ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio.Emprestimo>
+
+<h2>Empréstimos</h2>
+
+<a href="/Emprestimo/Criar">+ Novo Empréstimo</a>
+
+<table border="1">
+    <tr>
+        <th>Amigo</th>
+        <th>Revista</th>
+        <th>Data Empréstimo</th>
+        <th>Data Devolução</th>
+        <th>Status</th>
+        <th>Ação</th>
+    </tr>
+    @foreach (var e in Model)
+    {
+        <tr style="background-color: @(e.Status == "Atrasado" ? "#ffcccc" : "white")">
+            <td>@e.Amigo</td>
+            <td>@e.Revista</td>
+            <td>@e.DataEmprestimo.ToShortDateString()</td>
+            <td>@e.DataDevolucao.ToShortDateString()</td>
+            <td>@e.Status</td>
+            <td>
+                @if (e.Status == "Aberto" || e.Status == "Atrasado")
+                {
+                    <a href="/Emprestimo/Devolver/@e.Id">Devolver</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
