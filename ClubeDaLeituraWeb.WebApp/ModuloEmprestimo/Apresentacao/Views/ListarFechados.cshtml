@@ -1,48 +1,81 @@
 @using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Apresentacao.Models
+
 @model List<ListarEmprestimoViewModel>
 
 @{
+    Layout = "_Layout";
     ViewBag.Titulo = "Empréstimos Finalizados";
 }
 
-<h2 class="mb-4">@ViewBag.Titulo</h2>
+<div class="container py-4">
 
-<table class="table table-striped table-hover">
+    <div class="card shadow border-0 rounded-4">
 
-    <thead class="table-dark">
-        <tr>
-            <th>Amigo</th>
-            <th>Revista</th>
-            <th>Empréstimo</th>
-            <th>Devolução</th>
-            <th>Status</th>
-        </tr>
-    </thead>
+        <div class="card-header bg-dark text-white rounded-top-4 py-3">
 
-    <tbody>
+            <h3 class="mb-0 fw-semibold">
+                Empréstimos Finalizados
+            </h3>
 
-        @foreach (var e in Model)
-        {
-            <tr>
+        </div>
 
-                <td>@e.Amigo</td>
+        <div class="card-body p-4">
 
-                <td>@e.Revista</td>
+            <div class="table-responsive">
 
-                <td>
-                    @e.DataEmprestimo.ToShortDateString()
-                </td>
+                <table class="table table-hover align-middle">
 
-                <td>
-                    @e.DataDevolucao.ToShortDateString()
-                </td>
+                    <thead class="table-dark">
 
-                <td>@e.Status</td>
+                        <tr>
+                            <th>Amigo</th>
+                            <th>Revista</th>
+                            <th>Data Empréstimo</th>
+                            <th>Data Devolução</th>
+                            <th>Status</th>
+                        </tr>
 
-            </tr>
-        }
+                    </thead>
 
-    </tbody>
+                    <tbody>
 
-</table>
+                        @foreach (var emprestimo in Model)
+                        {
+                            <tr>
 
+                                <td>@emprestimo.Amigo</td>
+
+                                <td>@emprestimo.Revista</td>
+
+                                <td>
+                                    @emprestimo.DataEmprestimo.ToShortDateString()
+                                </td>
+
+                                <td>
+                                    @emprestimo.DataDevolucao.ToShortDateString()
+                                </td>
+
+                                <td>
+
+                                    <span class="badge bg-secondary rounded-pill px-3 py-2">
+
+                                        @emprestimo.Status
+
+                                    </span>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

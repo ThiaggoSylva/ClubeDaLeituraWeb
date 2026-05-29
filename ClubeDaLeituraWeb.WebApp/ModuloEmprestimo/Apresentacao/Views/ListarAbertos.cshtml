@@ -1,68 +1,103 @@
 @using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Apresentacao.Models
 @using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio
+
 @model List<ListarEmprestimoViewModel>
 
 @{
+    Layout = "_Layout";
     ViewBag.Titulo = "Empréstimos Abertos";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>@ViewBag.Titulo</h2>
+<div class="container py-4">
 
-    <a class="btn btn-primary"
-        asp-controller="Emprestimo"
-       asp-action="Cadastrar">
-        Novo Empréstimo
-    </a>
+    <div class="card shadow border-0 rounded-4">
+
+        <div class="card-header bg-primary text-white rounded-top-4 py-3 d-flex justify-content-between align-items-center">
+
+            <h3 class="mb-0 fw-semibold">
+                Empréstimos Abertos
+            </h3>
+
+            <a asp-action="Cadastrar"
+               class="btn btn-light rounded-pill px-4">
+                Novo Empréstimo
+            </a>
+
+        </div>
+
+        <div class="card-body p-4">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-dark">
+
+                        <tr>
+                            <th>Amigo</th>
+                            <th>Revista</th>
+                            <th>Data Empréstimo</th>
+                            <th>Data Devolução</th>
+                            <th>Status</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var emprestimo in Model)
+                        {
+                            bool atrasado =
+                                emprestimo.Status == StatusEmprestimo.Atrasado;
+
+                            <tr class="@(atrasado ? "table-danger" : "")">
+
+                                <td>@emprestimo.Amigo</td>
+
+                                <td>@emprestimo.Revista</td>
+
+                                <td>
+                                    @emprestimo.DataEmprestimo.ToShortDateString()
+                                </td>
+
+                                <td>
+                                    @emprestimo.DataDevolucao.ToShortDateString()
+                                </td>
+
+                                <td>
+
+                                    <span class="badge bg-@(atrasado ? "danger" : "success") rounded-pill px-3 py-2">
+
+                                        @emprestimo.Status
+
+                                    </span>
+
+                                </td>
+
+                                <td class="text-center">
+
+                                    <a asp-action="RegistrarDevolucao"
+                                       asp-route-id="@emprestimo.Id"
+                                       class="btn btn-success btn-sm rounded-pill px-3">
+
+                                        Devolver
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-
-<table class="table table-striped table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>Amigo</th>
-            <th>Revista</th>
-            <th>Data Empréstimo</th>
-            <th>Data Devolução</th>
-            <th>Status</th>
-            <th width="160px">Ações</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var e in Model)
-        {
-            bool atrasado =
-                e.Status == StatusEmprestimo.Atrasado;
-
-            <tr class="@(atrasado ? "table-danger" : "")">
-
-                <td>@e.Amigo</td>
-
-                <td>@e.Revista</td>
-
-                <td>
-                    @e.DataEmprestimo.ToShortDateString()
-                </td>
-
-                <td>
-                    @e.DataDevolucao.ToShortDateString()
-                </td>
-
-                <td>
-                    @e.Status
-                </td>
-
-                <td>
-                    <a class="btn btn-success btn-sm"
-                       asp-action="RegistrarDevolucao"
-                       asp-route-id="@e.Id">
-
-                        Devolver
-                    </a>
-                </td>
-
-            </tr>
-        }
-    </tbody>
-</table>
-
