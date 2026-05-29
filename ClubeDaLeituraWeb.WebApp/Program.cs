@@ -1,6 +1,12 @@
 using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra.Arquivos;
 using ClubeDaLeituraWeb.WebApp.ModuloCaixa.Dominio;
 using ClubeDaLeituraWeb.WebApp.ModuloCaixa.Infra;
+using ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloRevista.Infra;
+using ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloAmigo.Infra;
+using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +21,9 @@ builder.Services.AddScoped(provider =>
 });
 
 builder.Services.AddScoped<IRepositorioCaixa, RepositorioCaixaEmArquivo>();
+builder.Services.AddScoped<IRepositorioRevista, RepositorioRevistaEmArquivo>();
+builder.Services.AddScoped<IRepositorioAmigo, RepositorioAmigoEmArquivo>();
+builder.Services.AddScoped<IRepositorioEmprestimo, RepositorioEmprestimoEmArquivo>();
 
 builder.Services.AddControllersWithViews().AddRazorOptions(options =>
 {

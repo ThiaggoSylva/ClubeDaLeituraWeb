@@ -1,0 +1,52 @@
+@model ExcluirRevistaViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Excluir Revista";
+}
+
+<div class="card border-danger shadow-sm mx-auto p-4"
+     style="max-width: 600px;">
+
+    <h3 class="text-danger mb-3">
+        Confirmar Exclusão
+    </h3>
+
+    <p>
+        Deseja realmente excluir a revista
+        <strong>@Model.Titulo</strong>?
+    </p>
+
+    <div class="bg-light border rounded p-3 mb-4">
+
+        <p><strong>Título:</strong> @Model.Titulo</p>
+
+        <p><strong>Edição:</strong> @Model.NumeroEdicao</p>
+
+        <p><strong>Ano:</strong> @Model.AnoPublicacao</p>
+
+        <p><strong>Caixa:</strong> @Model.CaixaId</p>
+
+    </div>
+
+    <form asp-action="ExcluirConfirmado"
+          asp-route-id="@Model.Id"
+          method="post">
+
+        <div class="d-flex justify-content-end gap-2">
+
+            <a class="btn btn-outline-secondary rounded-pill px-4"
+               asp-action="Listar">
+                Voltar
+            </a>
+
+            <button class="btn btn-danger rounded-pill px-4"
+                    type="submit">
+                Excluir
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
