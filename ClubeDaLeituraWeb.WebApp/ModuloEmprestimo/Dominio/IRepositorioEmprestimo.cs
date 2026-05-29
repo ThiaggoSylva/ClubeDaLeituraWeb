@@ -1,14 +1,17 @@
 using ClubeDaLeituraWeb.WebApp.Compartilhado.Dominio;
-using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra;
 
 namespace ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio;
 
 public interface IRepositorioEmprestimo
     : IRepositorio<Emprestimo>
 {
-    List<Emprestimo> SelecionarAbertos();
+    List<Emprestimo> SelecionarEmprestimosAbertos();
 
-    List<Emprestimo> SelecionarConcluidos();
+    List<Emprestimo> SelecionarEmprestimosFechados();
 
-    Emprestimo? SelecionarEmprestimoAtivoAmigo(string amigoId);
+    bool AmigoPossuiEmprestimoAberto(
+        string amigoId);
+
+    List<Emprestimo> SelecionarEmprestimosPorAmigo(
+        string amigoId);
 }

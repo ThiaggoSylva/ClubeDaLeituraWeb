@@ -1,47 +1,70 @@
 using ClubeDaLeituraWeb.WebApp.Compartilhado.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloAmigo.Dominio;
+using ClubeDaLeituraWeb.WebApp.ModuloRevista.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio;
 
 public class Emprestimo : EntidadeBase<Emprestimo>
 {
-    public string AmigoId { get; set; }
-    public string RevistaId { get; set; }
+    public Amigo Amigo { get; set; } = null!;
+
+    public Revista Revista { get; set; } = null!;
 
     public DateTime DataEmprestimo { get; set; }
+
     public DateTime DataDevolucao { get; set; }
 
-    public StatusEmprestimo Status { get; set; }
+    public DateTime? DataDevolucaoRealizada { get; set; }
+    public StatusEmprestimo Status
+    {
+    get
+        {
+        if (DataDevolucaoRealizada != null)
+            return StatusEmprestimo.Concluido;
+
+        if (DateTime.Now > DataDevolucao)
+            return StatusEmprestimo.Atrasado;
+
+        return StatusEmprestimo.Aberto;
+        }
+    }
+
 
     public Emprestimo()
     {
-        Id = Guid.NewGuid().ToString();
-
-        DataEmprestimo = DateTime.Now;
-
-        Status = StatusEmprestimo.Aberto;
-        AmigoId = string.Empty;
-        RevistaId = string.Empty;
-    }
-
-    public override List<string> Validar()
-    {
-        List<string> erros = new();
-
-        if (string.IsNullOrWhiteSpace(AmigoId))
-            erros.Add("O amigo é obrigatório.");
-
-        if (string.IsNullOrWhiteSpace(RevistaId))
-            erros.Add("A revista é obrigatória.");
-
-        return erros;
     }
 
     public override void Atualizar(Emprestimo registroEditado)
     {
-        AmigoId = registroEditado.AmigoId;
-        RevistaId = registroEditado.RevistaId;
+        Amigo = registroEditado.Amigo;
+
+        Revista = registroEditado.Revista;
+
         DataEmprestimo = registroEditado.DataEmprestimo;
+
         DataDevolucao = registroEditado.DataDevolucao;
-        Status = registroEditado.Status;
+
+        DataDevolucaoRealizada =
+            registroEditado.DataDevolucaoRealizada;
+    }
+
+    public override List<string> Validar()
+    {
+        var erros = new List<string>();
+
+        if (Amigo == null)
+            erros.Add("O campo Amigo é obrigatório.");
+
+        if (Revista == null)
+            erros.Add("O campo Revista é obrigatório.");
+
+        if (DataEmprestimo == default)
+            erros.Add("A Data de Empréstimo é obrigatória.");
+
+        if (DataDevolucao == default)
+            erros.Add("A Data de Devolução é obrigatória.");
+
+        return erros;
     }
 }
+

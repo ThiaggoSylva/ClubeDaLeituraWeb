@@ -1,41 +1,55 @@
-using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra;
 using ClubeDaLeituraWeb.WebApp.Compartilhado.Infra.Arquivos;
 using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio;
 
 namespace ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Infra;
 
 public class RepositorioEmprestimoEmArquivo
-    : RepositorioBaseEmArquivo<Emprestimo>, IRepositorioEmprestimo
+    : RepositorioBaseEmArquivo<Emprestimo>,
+      IRepositorioEmprestimo
 {
+
     public RepositorioEmprestimoEmArquivo(ContextoJson contexto)
         : base(contexto)
     {
     }
 
-    protected override List<Emprestimo> CarregarRegistros()
+
+
+    protected override List<Emprestimo>
+    CarregarRegistros()
     {
-        return contexto.Emprestimos;
+    if (contexto.Emprestimos == null)
+        contexto.Emprestimos = [];
+
+    return contexto.Emprestimos;
     }
 
-    public List<Emprestimo> SelecionarAbertos()
+    public List<Emprestimo> SelecionarEmprestimosAbertos()
     {
         return registros
-            .Where(x => x.Status == StatusEmprestimo.Aberto ||
-                        x.Status == StatusEmprestimo.Atrasado)
+            .Where(x => x.Status != StatusEmprestimo.Concluido)
             .ToList();
     }
 
-    public List<Emprestimo> SelecionarConcluidos()
+    public List<Emprestimo> SelecionarEmprestimosFechados()
     {
         return registros
             .Where(x => x.Status == StatusEmprestimo.Concluido)
             .ToList();
     }
 
-    public Emprestimo? SelecionarEmprestimoAtivoAmigo(string amigoId)
+    public bool AmigoPossuiEmprestimoAberto(string amigoId)
     {
-        return registros.FirstOrDefault(x =>
-            x.AmigoId == amigoId &&
+        return registros.Any(x =>
+            x.Amigo.Id == amigoId.ToString() &&
             x.Status != StatusEmprestimo.Concluido);
     }
+
+    public List<Emprestimo> SelecionarEmprestimosPorAmigo(string amigoId)
+    {
+        return registros
+            .Where(x => x.Amigo.Id == amigoId.ToString())
+            .ToList();
+    }
 }
+

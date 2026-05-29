@@ -1,0 +1,81 @@
+@using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Apresentacao.Models
+
+@model CadastrarEmprestimoViewModel
+
+@{
+    ViewBag.Titulo = "Cadastrar Empréstimo";
+}
+
+<h2 class="mb-4">@ViewBag.Titulo</h2>
+
+<form method="post">
+
+    <div asp-validation-summary="All"
+         class="text-danger mb-3">
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Amigo
+        </label>
+
+        <select class="form-select"
+                asp-for="AmigoId">
+
+            <option value="">
+                Selecione um amigo
+            </option>
+
+            @foreach (var a in Model.Amigos)
+            {
+                <option value="@a.Id">
+                    @a.Nome
+                </option>
+            }
+
+        </select>
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Revista
+        </label>
+
+        <select class="form-select"
+                asp-for="RevistaId">
+
+            <option value="">
+                Selecione uma revista
+            </option>
+
+            @foreach (var r in Model.Revistas)
+            {
+                <option value="@r.Id">
+                    @r.Titulo
+                </option>
+            }
+
+        </select>
+
+    </div>
+
+    <button class="btn btn-primary">
+        Salvar
+    </button>
+
+    <a class="btn btn-outline-secondary"
+       asp-action="ListarAbertos">
+
+        Voltar
+    </a>
+
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+

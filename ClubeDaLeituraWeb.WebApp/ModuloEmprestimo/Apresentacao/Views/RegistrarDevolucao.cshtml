@@ -1,0 +1,50 @@
+@using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Apresentacao.Models
+@model RegistrarDevolucaoViewModel
+
+@{
+    ViewBag.Titulo = "Registrar Devolução";
+}
+
+<h2 class="mb-4">@ViewBag.Titulo</h2>
+
+<form method="post">
+
+    <input type="hidden"
+           asp-for="Id" />
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Amigo
+        </label>
+
+        <input class="form-control"
+               value="@Model.Amigo"
+               disabled />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Revista
+        </label>
+
+        <input class="form-control"
+               value="@Model.Revista"
+               disabled />
+
+    </div>
+
+    <button class="btn btn-success">
+        Confirmar Devolução
+    </button>
+
+    <a class="btn btn-outline-secondary"
+       asp-action="ListarAbertos">
+
+        Voltar
+    </a>
+
+</form>
+

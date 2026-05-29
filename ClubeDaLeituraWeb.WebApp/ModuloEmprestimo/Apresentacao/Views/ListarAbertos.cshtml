@@ -1,0 +1,68 @@
+@using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Apresentacao.Models
+@using ClubeDaLeituraWeb.WebApp.ModuloEmprestimo.Dominio
+@model List<ListarEmprestimoViewModel>
+
+@{
+    ViewBag.Titulo = "Empréstimos Abertos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>@ViewBag.Titulo</h2>
+
+    <a class="btn btn-primary"
+        asp-controller="Emprestimo"
+       asp-action="Cadastrar">
+        Novo Empréstimo
+    </a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Amigo</th>
+            <th>Revista</th>
+            <th>Data Empréstimo</th>
+            <th>Data Devolução</th>
+            <th>Status</th>
+            <th width="160px">Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var e in Model)
+        {
+            bool atrasado =
+                e.Status == StatusEmprestimo.Atrasado;
+
+            <tr class="@(atrasado ? "table-danger" : "")">
+
+                <td>@e.Amigo</td>
+
+                <td>@e.Revista</td>
+
+                <td>
+                    @e.DataEmprestimo.ToShortDateString()
+                </td>
+
+                <td>
+                    @e.DataDevolucao.ToShortDateString()
+                </td>
+
+                <td>
+                    @e.Status
+                </td>
+
+                <td>
+                    <a class="btn btn-success btn-sm"
+                       asp-action="RegistrarDevolucao"
+                       asp-route-id="@e.Id">
+
+                        Devolver
+                    </a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+

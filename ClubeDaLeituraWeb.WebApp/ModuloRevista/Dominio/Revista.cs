@@ -11,6 +11,7 @@ public class Revista : EntidadeBase<Revista>
     public int AnoPublicacao { get; set; }
 
     public string CaixaId { get; set; }
+    public string Status { get; set; } = "Disponível";
 
     public Revista(
         string titulo,
@@ -22,6 +23,8 @@ public class Revista : EntidadeBase<Revista>
         NumeroEdicao = numeroEdicao;
         AnoPublicacao = anoPublicacao;
         CaixaId = caixaId;
+
+        Status = "Disponível";
     }
 
     public Revista()
